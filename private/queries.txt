@@ -1,0 +1,7 @@
+SELECT images.*, albums.menu_name AS album_name,
+categories.menu_name AS category_name
+FROM images
+LEFT JOIN
+albums ON images.album_id = albums.id
+LEFT JOIN
+categories ON albums.category_id = categories.id;
