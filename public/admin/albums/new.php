@@ -9,7 +9,8 @@ if (isset($_GET['category_id'])) {
     $category_id = $_GET['category_id'];
     $category = find_category_by_id($category_id);
 } else {
-    // came from somewhere else,
+    $category = get_first_category();
+    $category_id = $category['id'];
 }
 
 $album = [];
@@ -72,7 +73,7 @@ $page_title = "Create Album"; ?>
             <dl>
                 <dt>Category</dt>
                 <dd>
-                    <select name="category_id">
+                    <select name="category_id" id="category">
                     <?php
                         while ($category = mysqli_fetch_assoc($category_set)) {
                             echo "<option value=\"{$category['id']}\"";
@@ -88,7 +89,7 @@ $page_title = "Create Album"; ?>
             <dl>
                 <dt>Position</dt>
                 <dd>
-                    <select name="position">
+                    <select name="position" id="position">
                     <?php
                         for ($i=1; $i <= $album_count; $i++) {
                             echo "<option value=\"{$i}\"";
@@ -115,5 +116,34 @@ $page_title = "Create Album"; ?>
         </form>
     </div>
 </div>
+<script>
+$(document).ready(function(){
 
+    $("#category").change(function(){
+        var category = $(this).val();
+
+        $.ajax({
+            url: '/public/admin/albums/countAlbums.php',
+            type: 'post',
+            data: {category_id:category},
+            dataType: 'json',
+            success:function(response){
+
+                var album_count = response + 1;
+                
+                $("#position").empty();
+                for( var i = 1; i <= album_count; i++){
+                    if (i = album_count) {
+                        $("#position").append("<option value='"+i+"' checked>"+i+"</option>");
+                    } else {
+                        $("#position").append("<option value='"+i+"'>"+i+"</option>");
+                    }
+                }
+                // $("#position").append("<option value='"+(len+1)+"'>"+(value+1)+"</option>");
+            }
+        });
+    });
+
+});
+</script>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

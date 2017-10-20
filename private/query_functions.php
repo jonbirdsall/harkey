@@ -265,6 +265,21 @@ function delete_user($user) {
 
 /** CATEGORIES **/
 
+// get_first_category()
+// returns first category
+function get_first_category() {
+    global $db;
+
+    $sql = "SELECT * FROM categories ";
+    $sql .= "ORDER BY id ASC ";
+    $sql .= "LIMIT 1";
+
+    $category_set = mysqli_query($db, $sql);
+
+    confirm_result_set($category_set);
+    return mysqli_fetch_assoc($category_set);
+
+}
 // returns mysqli result set of all categories
 // options:
 //      bool visible
