@@ -51,14 +51,19 @@ $page_title = "Create Album"; ?>
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
-    <?php if (isset($category)) { ?>
-        <a class="back-link" href="<?= url_for('/admin/categories/show.php?id=' .
-            h(u($category['id']))); ?>">
-            &laquo; Back to Category: <?= $category['menu_name']; ?></a>
-    <?php } else { ?>
-        <a class="back-link" href="<?= url_for('/admin/albums/index.php'); ?>">
-            &laquo; Back to Albums list</a>
-    <?php } ?>
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/albums/index.php'); ?>
+                    ">Albums</a></li>
+                <li class="breadcrumb-item active" aria-current="page">New</li>
+            </ol>
+        </nav>
+    </div>
     <div class="album new">
         <h1>Create Album</h1>
 
@@ -130,7 +135,7 @@ $(document).ready(function(){
             success:function(response){
 
                 var album_count = response + 1;
-                
+
                 $("#position").empty();
                 for( var i = 1; i <= album_count; i++){
                     if (i = album_count) {
@@ -139,7 +144,7 @@ $(document).ready(function(){
                         $("#position").append("<option value='"+i+"'>"+i+"</option>");
                     }
                 }
-                // $("#position").append("<option value='"+(len+1)+"'>"+(value+1)+"</option>");
+
             }
         });
     });

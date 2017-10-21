@@ -40,8 +40,19 @@ if (is_post_request()) {
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
-    <a class="back-link" href="<?= url_for('/admin/categories/index.php'); ?>">
-        &laquo; Back to List</a>
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/categories/index.php'); ?>
+                    ">Categories</a></li>
+                <li class="breadcrumb-item active" aria-current="page">New</li>
+            </ol>
+        </nav>
+    </div>
 
     <div class="category new">
         <h1>Create Category</h1>

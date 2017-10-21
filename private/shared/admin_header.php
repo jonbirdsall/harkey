@@ -29,6 +29,14 @@
                     <ul>
                         <li>User: <?= $_SESSION['username'] ?? ''; ?></li>
                         <li><a href="<?= url_for('/admin/index.php'); ?>">Menu</a></li>
+                        <li><a href="<?= url_for('/admin/users/index.php'); ?>">
+                            Users</a></li>
+                        <li><a href="<?= url_for('/admin/categories/index.php'); ?>">
+                            Categories</a></li>
+                        <li><a href="<?= url_for('/admin/albums/index.php'); ?>">
+                            Albums</a></li>
+                        <li><a href="<?= url_for('/admin/images/index.php'); ?>">
+                            Images</a></li>
                         <li><a href="<?= url_for('/admin/logout.php'); ?>">Logout</a></li>
                     </ul>
                 </navigation>

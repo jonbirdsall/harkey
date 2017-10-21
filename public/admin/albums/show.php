@@ -16,9 +16,20 @@ require_login();
 ?>
 
     <div id="content">
-        <a class="back-link" href="<?= url_for('/admin/categories/show.php?id=' .
-            h(u($category['id']))); ?>">
-            &laquo; Back to Category: <?= $category['menu_name']; ?></a>
+        <div id="breadcrumbs">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="
+                        <?= url_for('/admin/index.php'); ?>
+                        ">Menu</a></li>
+                    <li class="breadcrumb-item"><a href="
+                        <?= url_for('/admin/albums/index.php'); ?>
+                        ">Albums</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Album : <?= $album['menu_name']; ?></li>
+                </ol>
+            </nav>
+        </div>
 
         <div class="album show">
 

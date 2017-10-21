@@ -17,7 +17,7 @@ if (is_post_request()) {
     $result = delete_image($image);
     if ($result === true) {
         $_SESSION['message'] = "The image was deleted successfully.";
-        redirect_to(url_for('/admin/albums/show.php?album_id=' . $image['album_id']));
+        redirect_to(url_for('/admin/images/index.php'));
     } else {
         // DELETE failed
         $errors = $result;
@@ -32,9 +32,21 @@ if (is_post_request()) {
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
-    <div class="row">
-        <a class="back-link" href="<?= url_for('/admin/categories/index.php'); ?>">
-            &laquo; Back to Image: <?= $image['filename']; ?></a>
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/images/index.php'); ?>
+                    ">Images</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/images/show.php?id=' . $image['id']); ?>
+                    ">Image : <?= $image['filename']; ?></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
     </div>
     <div class="row">
         <div class="image delete col-sm-9">

@@ -38,15 +38,29 @@ mysqli_free_result($category_set);
 
 ?>
 
-<?php $page_title = 'Edit Album'; ?>
+<?php $page_title = 'Edit Category'; ?>
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
-    <a class="back-link" href="<?= url_for('/admin/albums/index.php'); ?>">
-        &laquo; Back to List</a>
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/categories/index.php'); ?>
+                    ">Categories</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/categories/show.php?id=' . $category['id']); ?>
+                    ">Category : <?= $category['menu_name']; ?></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
+    </div>
 
-    <div class="album edit">
-        <h1>Edit Album</h1>
+    <div class="category edit">
+        <h1>Edit Category</h1>
 
         <?= display_errors($errors); ?>
 

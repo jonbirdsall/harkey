@@ -14,17 +14,27 @@
 ?>
 
 <div id="content">
-    <a class="back-link" href="<?= url_for('/admin/albums/show.php?album_id=' .
-        $image['album_id']); ?>">
-        &laquo; Back to Album</a>
-
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/images/index.php'); ?>
+                    ">Images</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Image : <?= $image['filename']; ?></li>
+            </ol>
+        </nav>
+    </div>
     <div class="image show">
 
         <h1>Image: <?= h($image['filename']); ?></h1>
 
         <div class="actions">
             <a class="action" href="<?= url_for('/admin/images/edit.php?id=' .
-            h(u($image['id']))); ?>">Edit</a> | 
+            h(u($image['id']))); ?>">Edit</a> |
             <a class="action" href="<?= url_for('/admin/images/delete.php?id=' .
             h(u($image['id']))); ?>">Delete</a>
         </div>

@@ -17,8 +17,20 @@ require_login();
 ?>
 
     <div id="content">
-        <a class="back-link" href="<?= url_for('/admin/categories/index.php'); ?>">
-            &laquo; Back to List</a>
+        <div id="breadcrumbs">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="
+                        <?= url_for('/admin/index.php'); ?>
+                        ">Menu</a></li>
+                    <li class="breadcrumb-item"><a href="
+                        <?= url_for('/admin/categories/index.php'); ?>
+                        ">Categories</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                    Category : <?= $category['menu_name']; ?></li>
+                </ol>
+            </nav>
+        </div>
 
         <div class="category show">
 
@@ -41,14 +53,12 @@ require_login();
 
             <hr>
             <?php $album_set = find_albums_by_category_id($category['id']); ?>
-            <div class="pages listing">
-                <h2>Albums</h2>
+            <div class="albums listing">
 
-                <div class="actions">
-                    <a class="action" href="<?= url_for('/admin/albums/new.php?category_id=' . $id); ?>">
-                        Create New Album</a>
-                </div>
-                <?php require_once('../albums/album_list.php'); ?>
+                <?php
+                    $child = true;
+                    require_once('../albums/album_list.php');
+                ?>
 
 
                 <?php mysqli_free_result($album_set); ?>

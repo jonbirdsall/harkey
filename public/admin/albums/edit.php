@@ -46,9 +46,22 @@ mysqli_free_result($album_set);
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
-    <a class="back-link" href="<?= url_for('/admin/albums/index.php'); ?>">
-        &laquo; Back to List</a>
-
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/albums/index.php'); ?>
+                    ">Albums</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/albums/show.php?id=' . $album['id']); ?>
+                    ">Album : <?= $album['menu_name']; ?></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
+    </div>
     <div class="album edit">
         <h1>Edit Album</h1>
 

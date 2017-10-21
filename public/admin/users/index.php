@@ -8,6 +8,16 @@
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Users</li>
+            </ol>
+        </nav>
+    </div>
     <div class="users listing">
         <h1>Users</h1>
 

@@ -13,16 +13,22 @@ require_login();
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
     <div id="content">
+        <div id="breadcrumbs">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="
+                        <?= url_for('/admin/index.php'); ?>
+                        ">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                </ol>
+            </nav>
+        </div>
         <div class="categories listing">
             <h1>Categories</h1>
 
             <div class="actions">
                 <a class="action" href="<?= url_for('/admin/categories/new.php'); ?>">
-                    Create New Category</a> |
-                <a class="action" href="<?= url_for('/admin/categories/index.php'); ?>">
-                    Categories List</a> |
-                <a class="action" href="<?= url_for('/admin/albums/index.php'); ?>">
-                    Albums List</a>
+                    Create New Category</a>
             </div>
 
             <table class="list">

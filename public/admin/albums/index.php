@@ -12,23 +12,22 @@ require_login();
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
     <div id="content">
-        <div class="albums listing">
-            <h1>Albums</h1>
-
-            <div class="actions">
-                <p>Please choose a category to add albums.</p>
-                <a class="action" href="<?= url_for('/admin/categories/index.php'); ?>">
-                    Categories List</a> |
-                <a class="action" href="<?= url_for('/admin/albums/index.php'); ?>">
-                    Albums List</a>
-            </div>
-
-            <?php require_once('album_list.php'); ?>
-
-            <?php
-                mysqli_free_result($album_set);
-             ?>
+        <div id="breadcrumbs">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="
+                        <?= url_for('/admin/index.php'); ?>
+                        ">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Albums</li>
+                </ol>
+            </nav>
         </div>
-    </div>
+        <?php require_once('album_list.php'); ?>
 
+
+
+    </div>
+<?php
+    mysqli_free_result($album_set);
+?>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

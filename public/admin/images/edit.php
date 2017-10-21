@@ -14,9 +14,11 @@ $id = h($_GET['id']) ?? '1';
 
 $image = find_image_by_id($id);
 $album_set = find_all_albums();
+$category_set = find_all_categories();
 $thumb_url = thumb_url($image['filename']);
 $thumb_size = thumb_size($image['filename']);
 $page_title = "Edit Image: " . h($image['filename']);
+
 
 if (is_post_request()) {
 
@@ -46,6 +48,22 @@ include(SHARED_PATH . '/admin_header.php');
 ?>
 
 <div id="content">
+    <div id="breadcrumbs">
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/index.php'); ?>
+                    ">Menu</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/images/index.php'); ?>
+                    ">Images</a></li>
+                <li class="breadcrumb-item"><a href="
+                    <?= url_for('/admin/images/show.php?id=' . $image['id']); ?>
+                    ">Image : <?= $image['filename']; ?></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
+    </div>
     <a class="back-link" href="<?= url_for('/admin/albums/show.php?album_id=' .
         $image['album_id']); ?>">
         &laquo; Back to Album</a>
@@ -64,9 +82,22 @@ include(SHARED_PATH . '/admin_header.php');
                         <dd><?= h($image['filename']); ?></dd>
                     </dl>
                     <dl>
+                        <dt>Category</dt>
+                        <dd>
+                            <select name="category_id" id="category">
+                            <?php
+                                while ($category = mysqli_fetch_assoc($category_set)) {
+                                    echo "<option value=\"{$category['id']}\"";
+                                    echo ">{$category['menu_name']}</option>";
+                                }
+                            ?>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
                         <dt>Album</dt>
                         <dd>
-                            <select name="album_id">
+                            <select name="album_id" id="album">
                             <?php
                                 while ($album = mysqli_fetch_assoc($album_set)) {
                                     echo "<option value=\"{$album['id']}\"";
@@ -128,5 +159,6 @@ include(SHARED_PATH . '/admin_header.php');
         </div>
     </div>
 </div>
+<?php include('updateCategorySelect.php'); ?>
 
 <?php include(SHARED_PATH . '/admin_footer.php');
