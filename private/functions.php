@@ -133,6 +133,25 @@ function thumb_url($filename) {
     return url_for('/uploads/thumb_' . $filename);
 }
 
+// return the html formatted size attributes of the given
+// image thumbnail stored on the server
 function thumb_size($filename) {
     return getimagesize(UPLOAD_PATH . 'thumb_' . $filename)[3];
+}
+
+function rotate_image($filename, $degrees) {
+    // Load
+    $source = imagecreatefromjpeg($filename);
+
+    // Rotate
+    $rotate = imagerotate($source, $degrees, 0);
+
+    // Output
+    if (imagejpeg($rotate, $filename)) {
+        imagedestroy($source);
+        imagedestroy($rotate);
+        return true;
+    } else {
+        return false;
+    }
 }

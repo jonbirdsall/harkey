@@ -145,7 +145,7 @@ include(SHARED_PATH . '/admin_header.php');
                     <dl>
                         <dt>Caption Text</dt>
                         <dd>
-                            <textarea cols="80" rows="20" name="caption"><?= $image['caption'] ?? ''; ?></textarea>
+                            <textarea cols="50" rows="10" name="caption"><?= $image['caption'] ?? ''; ?></textarea>
                         </dd>
                     </dl>
                     <div id="operations">
@@ -154,11 +154,52 @@ include(SHARED_PATH . '/admin_header.php');
                 </form>
             </div>
             <div class="col-sm-3">
-                <img src="<?= $thumb_url; ?>" <?= $thumb_size; ?> class="img-responsive">
+                <img src="<?= $thumb_url; ?>" <?= $thumb_size; ?>
+                    class="img-responsive" id="thumbnail"><br>
+                <img src="reply.svg" id="countercw" width="20" height="20">
+                <img src="forward.svg" id="cw" width="20" height="20">
             </div>
         </div>
     </div>
 </div>
 <?php include('updateCategorySelect.php'); ?>
+<script>
+$(document).ready(function(){
+
+    $("#countercw").click(function(){
+        var degrees = 90;
+        var filename = "<?= $image['filename']; ?>";
+        $.ajax({
+            url: '/public/admin/images/rotateImage.php',
+            type: 'post',
+            data: {filename:filename, degrees:degrees},
+            dataType: 'text',
+            success:function(response){
+                d = new Date();
+
+                if (response == 'success') {
+                    $( "#thumbnail" ).attr("src", "<?= $thumb_url; ?>"+"?"+d.getTime());
+                }
+            }
+        });
+    });
+    $("#cw").click(function(){
+        var degrees = -90;
+        var filename = "<?= $image['filename']; ?>";
+        $.ajax({
+            url: '/public/admin/images/rotateImage.php',
+            type: 'post',
+            data: {filename:filename, degrees:degrees},
+            dataType: 'text',
+            success:function(response){
+                d = new Date();
+                $( "#thumbnail" ).attr("src", "<?= $thumb_url; ?>"+"?timestamp="+d.getTime());
+
+            }
+        });
+    });
+
+});
+</script>
 
 <?php include(SHARED_PATH . '/admin_footer.php');
