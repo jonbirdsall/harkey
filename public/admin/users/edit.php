@@ -70,7 +70,10 @@ if (is_post_request()) {
 
         <form action="<?= url_for('/admin/users/edit.php?id=' . h(u($id))); ?>"
             method="post">
-            <?php require_once('user_form.php'); ?>
+            <?php
+                $new = false;
+                require_once('user_form.php');
+            ?>
         </form>
     </div>
 </div>

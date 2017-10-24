@@ -57,13 +57,21 @@ if (is_post_request()) {
     </div>
 
     <div class="user new">
-        <h1>Add User</h1>
 
-        <?= display_errors($errors); ?>
-
-        <form action="<?= url_for('/admin/users/new.php'); ?>" method="post">
-            <?php require_once('user_form.php'); ?>
-        </form>
+            <div class="row">
+                <h1>Add User</h1>
+            </div>
+            <div class="row">
+                <?= display_errors($errors); ?>
+            </div>
+            <div class="container">
+            <form action="<?= url_for('/admin/users/new.php'); ?>" method="post">
+                <?php
+                    $new = true;
+                    require_once('user_form.php');
+                ?>
+            </form>
+            </div>
     </div>
 </div>
 

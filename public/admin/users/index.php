@@ -27,16 +27,14 @@
 
         </div>
 
-        <table class="list">
+        <table class="list table">
             <tr>
                 <th>ID</th>
                 <th>Username</th>
                 <th>Last Name</th>
                 <th>First Name</th>
                 <th>Email</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
+                <th>Actions</th>
             </tr>
 
             <?php while ($user = mysqli_fetch_assoc($user_set)) { ?>
@@ -48,11 +46,11 @@
                     <td><?= h($user['email']); ?></td>
                     <td><a class="action" href="<?=
                         url_for('/admin/users/show.php?id=' .
-                        h(u($user['id']))); ?>">View</a></td>
-                    <td><a class="action" href="<?=
+                        h(u($user['id']))); ?>">View</a>
+                     | <a class="action" href="<?=
                         url_for('/admin/users/edit.php?id=' .
-                        h(u($user['id']))); ?>">Edit</a></td>
-                    <td><a class="action" href="<?=
+                        h(u($user['id']))); ?>">Edit</a>
+                     | <a class="action" href="<?=
                         url_for('/admin/users/delete.php?id=' .
                         h(u($user['id']))); ?>">Delete</a></td>
                 </tr>

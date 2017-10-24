@@ -22,7 +22,10 @@ require_login();
                 </ol>
             </nav>
         </div>
-        <?php require_once('album_list.php'); ?>
+        <?php
+            $child = false;
+            require_once('album_list.php');
+        ?>
 
 
 

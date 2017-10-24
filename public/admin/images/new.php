@@ -67,75 +67,13 @@ $album_set = find_all_albums();
 
         <form enctype="multipart/form-data" action="<?=
             url_for('/admin/images/new.php'); ?>" method="post">
-            <dl>
-                <dt>Visible</dt>
-                <dd>
-                    <input type="hidden" name="visible" value="0">
-                    <input type="checkbox" name="visible" value="1">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Image to upload</dt>
-                <dd>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="3000000">
-                    <input name="image" type="file">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Category</dt>
-                <dd>
-                    <select name="category_id" id="category">
-                    <?php
-                        while ($category = mysqli_fetch_assoc($category_set)) {
-                            echo "<option value=\"{$category['id']}\"";
-                            echo ">{$category['menu_name']}</option>";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Album</dt>
-                <dd>
-                    <select name="album_id" id="album">
-                    <?php
-                        while ($album = mysqli_fetch_assoc($album_set)) {
-                            echo "<option value=\"{$album['id']}\"";
-                            echo ">{$album['menu_name']}</option>";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <script>
-                $( function() {
-                    $( "#datepicker" ).datepicker();
-                    $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-                });
-                </script>
-                <dt>Date taken</dt>
-                <dd>
-                    <input type="text" id="datepicker" name="taken" size="30">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Alt Text</dt>
-                <dd>
-                    <input type="text" name="alt_text" size="50">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Caption Text</dt>
-                <dd>
-                    <textarea cols="80" rows="20" name="caption"></textarea>
-                </dd>
-            </dl>
-            <div id="operations">
-                <input type="submit" value="Upload Image">
-            </div>
+            <?php
+                $new = true;
+                require_once('image_form.php');
+            ?>
         </form>
+
     </div>
 </div>
-<?php include('updateCategorySelect.php'); ?>
+<?php include(SHARED_PATH . '/updateCategorySelect.php'); ?>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

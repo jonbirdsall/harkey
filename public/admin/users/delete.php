@@ -48,15 +48,16 @@ if (is_post_request()) {
     </div>
 
     <div class="subject delete">
-        <h1>Delete Admin</h1>
+        <h1>Delete User</h1>
         <?= display_errors($errors); ?>
-        <p>Are you sure you want to delete this Admin?</p>
+        <p>Are you sure you want to delete this User?</p>
         <p class="item"><?= h($user['username']); ?></p>
 
         <form action="<?= url_for('/admin/users/delete.php?id=' .
             h(u($user['id']))); ?>" method="post">
             <div id="operations">
-                <input type="submit" name="commit" value="Delete User">
+                <button type="submit" name="commit" class="btn btn-primary">
+                    Delete User</button>
             </div>
         </form>
     </div>

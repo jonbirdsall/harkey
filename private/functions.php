@@ -100,6 +100,32 @@ function display_session_message() {
 // $max_height = maximum desired width of thumbnail image
 // $extension = extension of uploaded image
 function make_thumb($original, $max_width, $max_height, $extension) {
+    $thumb = make_reasonable_size($original, $max_width, $max_height, $extension);
+    return imagejpeg($thumb, UPLOAD_PATH . "thumb_" . basename($original), 80);
+}
+
+function resize_and_save($original, $save_location){
+    $ext_array = explode(".", $original);
+    $extension = end($ext_array);
+    switch ($extension) {
+        case 'jpg':
+            return imagejpeg(make_reasonable_size($original, 980, 860, $extension),
+                $save_location);
+        case 'gif':
+            return imagegif(make_reasonable_size($original, 980, 860, $extension),
+                $save_location);
+        case 'png':
+            return imagepng(make_reasonable_size($original, 980, 860, $extension),
+                $save_location);
+        default:
+            return false;
+            break;
+    }
+}
+
+// returns image link resource
+// use imagejpeg/imagegif/imagepng to save
+function make_reasonable_size($original, $max_width = 980, $max_height = 860, $extension = 'jpg') {
     list($w_orig, $h_orig) = getimagesize($original);
     $ratio = $w_orig / $h_orig;
     // determines dimensions of new thumbnail
@@ -120,12 +146,14 @@ function make_thumb($original, $max_width, $max_height, $extension) {
     } else {
         $img = imagecreatefromjpeg($original);
     }
+
     // strip path from image file
     $filename = basename($original);
     $truecolorimage = imagecreatetruecolor($new_width, $new_height);
     imagecopyresampled($truecolorimage, $img, 0, 0, 0, 0, $new_width, $new_height,
         $w_orig, $h_orig);
-    return imagejpeg($truecolorimage, UPLOAD_PATH . "thumb_" . $filename, 80);
+    var_dump($truecolorimage);
+    return $truecolorimage;
 }
 
 // return url for thumbnail image

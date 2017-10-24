@@ -29,7 +29,7 @@ require_login();
                 <a class="action" href="<?= url_for('/admin/images/new.php'); ?>">
                     Upload New Image</a>
             </div>
-            <table class="list">
+            <table class="list table">
                 <tr>
                     <th>ID</th>
                     <th>Filename</th>

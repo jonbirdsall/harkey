@@ -35,10 +35,9 @@ if (is_post_request()) {
     $album = find_album_by_id($id);
 }
 
-$album_set = find_all_albums();
+
 $category_set = find_all_categories();
-$album_count = mysqli_num_rows($album_set);
-mysqli_free_result($album_set);
+
 
 ?>
 
@@ -66,61 +65,16 @@ mysqli_free_result($album_set);
         <h1>Edit Album</h1>
 
         <?= display_errors($errors); ?>
-
-        <form action="<?= url_for('/admin/albums/edit.php?id=' . h(u($id))); ?>"
-            method="post">
-            <dl>
-                <dt>Category</dt>
-                <dd>
-                    <select name="category_id">
-                    <?php
-                    while ($category = mysqli_fetch_assoc($category_set)) {
-
-                            echo "<option value=\"{$category['id']}\"";
-                            if ($album['category_id'] == $category['id']) {
-                                echo ' selected';
-                            }
-                            echo ">{$category['menu_name']}</option>";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Menu Name</dt>
-                <dd><input type="text" name="menu_name" value="<?=
-                h($album['menu_name']); ?>">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Position</dt>
-                <dd>
-                    <select name="position">
-                    <?php
-                        for ($i=1; $i <= $album_count; $i++) {
-                            echo "<option value=\"{$i}\"";
-                            if ($album['position'] == $i) {
-                                echo ' selected';
-                            }
-                            echo ">{$i}</option>:";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Visible</dt>
-                <dd>
-                    <input type="hidden" name="visible" value="0">
-                    <input type="checkbox" name="visible" value="1"
-                        <?= $album['visible'] == '1' ? 'checked' : ''; ?>>
-                </dd>
-            </dl>
-            <div id="operations">
-                <input type="submit" value="Edit Album">
-            </div>
-        </form>
+        <div class="container">
+            <form action="<?= url_for('/admin/albums/edit.php?id=' . h(u($id))); ?>"
+                method="post">
+                <?php
+                    $new = false;
+                    require_once('album_form.php');
+                ?>
+            </form>
+        </div>
     </div>
 </div>
-
+<?php require_once('updatePosition.php'); ?>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

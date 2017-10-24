@@ -34,9 +34,11 @@
 
         <div class="actions">
             <a class="action" href="<?= url_for('/admin/images/edit.php?id=' .
-            h(u($image['id']))); ?>">Edit</a> |
+                h(u($image['id']))); ?>">Edit</a> |
             <a class="action" href="<?= url_for('/admin/images/delete.php?id=' .
-            h(u($image['id']))); ?>">Delete</a>
+                h(u($image['id']))); ?>">Delete</a> |
+            <a class="action" href="<?= IMAGE_URL . $image['filename']; ?>" target="_blank">
+                Preview</a>
         </div>
 
         <div class="attributes row">

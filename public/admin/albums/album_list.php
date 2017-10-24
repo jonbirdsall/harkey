@@ -10,7 +10,7 @@
                 Create Album</a>
         </div>
         <div class="list">
-        <table class="list">
+        <table class="list table">
             <tr>
                 <th>ID</th>
                 <th>Position</th>

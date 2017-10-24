@@ -63,44 +63,17 @@ mysqli_free_result($category_set);
         <h1>Edit Category</h1>
 
         <?= display_errors($errors); ?>
+        <div class="container">
+            <form action="<?= url_for('/admin/categories/edit.php?id=' . h(u($id))); ?>"
+                method="post">
 
-        <form action="<?= url_for('/admin/albums/edit.php?id=' . h(u($id))); ?>"
-            method="post">
+                <?php
+                    $new = false;
+                    require_once('category_form.php');
+                ?>
 
-            <dl>
-                <dt>Menu Name</dt>
-                <dd><input type="text" name="menu_name" value="<?=
-                h($category['menu_name']); ?>">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Position</dt>
-                <dd>
-                    <select name="position">
-                    <?php
-                        for ($i=1; $i <= $category_count; $i++) {
-                            echo "<option value=\"{$i}\"";
-                            if ($category['position'] == $i) {
-                                echo ' selected';
-                            }
-                            echo ">{$i}</option>:";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Visible</dt>
-                <dd>
-                    <input type="hidden" name="visible" value="0">
-                    <input type="checkbox" name="visible" value="1"
-                        <?= $category['visible'] == '1' ? 'checked' : ''; ?>>
-                </dd>
-            </dl>
-            <div id="operations">
-                <input type="submit" value="Edit Category">
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

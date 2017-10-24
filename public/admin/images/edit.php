@@ -64,105 +64,34 @@ include(SHARED_PATH . '/admin_header.php');
             </ol>
         </nav>
     </div>
-    <a class="back-link" href="<?= url_for('/admin/albums/show.php?album_id=' .
-        $image['album_id']); ?>">
-        &laquo; Back to Album</a>
 
     <div class="image show">
 
         <h1>Image: <?= h($image['filename']); ?></h1>
 
-
-        <div class="attributes row">
+        <?= display_errors($errors); ?>
+        <div class="container">
+        <div class="row">
             <div class="col-sm-9">
                 <form action="<?= url_for('/admin/images/edit.php?id=' .
                     $id); ?>" method="post">
-                    <dl>
-                        <dt>Filename</dt>
-                        <dd><?= h($image['filename']); ?></dd>
-                    </dl>
-                    <dl>
-                        <dt>Category</dt>
-                        <dd>
-                            <select name="category_id" id="category">
-                            <?php
-                                while ($category = mysqli_fetch_assoc($category_set)) {
-                                    echo "<option value=\"{$category['id']}\"";
-                                    echo ">{$category['menu_name']}</option>";
-                                }
-                            ?>
-                            </select>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>Album</dt>
-                        <dd>
-                            <select name="album_id" id="album">
-                            <?php
-                                while ($album = mysqli_fetch_assoc($album_set)) {
-                                    echo "<option value=\"{$album['id']}\"";
-                                    if ($image['album_id'] == $album['id']) {
-                                        echo ' selected';
-                                    }
-                                    echo ">{$album['menu_name']}</option>";
-                                }
-                            ?>
-                            </select>
-                        </dd>
-                    <dl>
-                        <dt>Type</dt>
-                        <dd><?= h($image['type']) ?? ''; ?></dd>
-                    </dl>
-                    <dl>
-                        <script>
-                        $( function() {
-                            $( "#datepicker" ).datepicker();
-                            $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-                            $( "#datepicker" ).datepicker( "setDate", "<?= $image['taken']; ?>");
-                        });
-                        </script>
-                        <dt>Date taken</dt>
-                        <dd>
-                            <input type="text" id="datepicker" name="taken" size="30"
-                                value="<?= $image['taken'] ?? ''; ?>">
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>Visible</dt>
-                        <dd>
-                            <input type="hidden" name="visible" value="0">
-                            <input type="checkbox" name="visible" value="1"
-                                <?php if($image['visible'] == '1') {echo 'checked';} ?>>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>Alt Text</dt>
-                        <dd>
-                            <input type="text" name="alt_text" size="50"
-                                value="<?= $image['alt_text'] ?? ''; ?>">
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>Caption Text</dt>
-                        <dd>
-                            <textarea cols="50" rows="10" name="caption"><?= $image['caption'] ?? ''; ?></textarea>
-                        </dd>
-                    </dl>
-                    <div id="operations">
-                        <input type="submit" value="Edit Image">
-                    </div>
+                    <?php
+                        $new = false;
+                        require_once('image_form.php');
+                    ?>
                 </form>
             </div>
             <div class="col-sm-3">
-                <img src="<?= $thumb_url; ?>" <?= $thumb_size; ?>
+                <img src="<?= $thumb_url; ?>"
                     class="img-responsive" id="thumbnail"><br>
                 <img src="reply.svg" id="countercw" width="20" height="20">
                 <img src="forward.svg" id="cw" width="20" height="20">
             </div>
         </div>
+        </div>
     </div>
 </div>
-<?php include('updateCategorySelect.php'); ?>
+<?php include(SHARED_PATH . '/updateCategorySelect.php'); ?>
 <script>
 $(document).ready(function(){
 
@@ -175,11 +104,8 @@ $(document).ready(function(){
             data: {filename:filename, degrees:degrees},
             dataType: 'text',
             success:function(response){
-                d = new Date();
 
-                if (response == 'success') {
-                    $( "#thumbnail" ).attr("src", "<?= $thumb_url; ?>"+"?"+d.getTime());
-                }
+                $("#thumbnail").attr('src', $("#thumbnail").attr('src') + '?' + Math.random() );
             }
         });
     });
@@ -192,9 +118,8 @@ $(document).ready(function(){
             data: {filename:filename, degrees:degrees},
             dataType: 'text',
             success:function(response){
-                d = new Date();
-                $( "#thumbnail" ).attr("src", "<?= $thumb_url; ?>"+"?timestamp="+d.getTime());
 
+                $("#thumbnail").attr('src', $("#thumbnail").attr('src') + '?' + Math.random() )
             }
         });
     });

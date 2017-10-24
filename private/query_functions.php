@@ -280,6 +280,7 @@ function get_first_category() {
     return mysqli_fetch_assoc($category_set);
 
 }
+
 // returns mysqli result set of all categories
 // options:
 //      bool visible
@@ -320,7 +321,6 @@ function find_category_by_id($id, $options=[]) {
 
     return $category;
 }
-
 
 // validate category meets certain criteria
 // returns an array containing strings of any errors encountered
@@ -459,7 +459,7 @@ function find_all_albums($options=[]) {
     if($visible) {
         $sql .= "WHERE visible = true ";
     }
-    $sql .= "ORDER BY position ASC";
+    $sql .= "ORDER BY albums.category_id, position ASC";
     $album_set = mysqli_query($db, $sql);
     confirm_result_set($album_set);
     return $album_set;
@@ -776,44 +776,51 @@ function insert_image($image) {
     }
 
     // TODO update sql to match images table
-    $sql = "INSERT INTO images ";
-    $sql .= "(album_id, filename, type, visible, taken, alt_text, caption) ";
-    $sql .= "VALUES (";
-    $sql .= "'" . db_escape($db, $image['album_id']) . "',";
-    $sql .= "'" . db_escape($db, $image['filename']) . "',";
-    $sql .= "'" . db_escape($db, $image['type']) . "',";
-    $sql .= "'" . db_escape($db, $image['visible']) . "',";
-    $sql .= "'" . db_escape($db, $image['taken']) . "',";
-    $sql .= "'" . db_escape($db, $image['alt_text']) . "',";
-    $sql .= "'" . db_escape($db, $image['caption']) . "'";
-    $sql .= ")";
 
-    $result = mysqli_query($db, $sql);
-    // $result will be boolean
 
-    if ($result) {
-        $saved_image = UPLOAD_PATH . $image['filename'];
-        $moved = move_uploaded_file($image['tmp_name'], $saved_image);
-        if ($moved) {
-            $ext = explode('.', $image['name'])[1];
-            $made_thumb = make_thumb($saved_image, 200, 150, $ext);
-            if ($made_thumb) {
+    $saved = '';
+    $saved_image = UPLOAD_PATH . $image['filename'];
+    $moved = move_uploaded_file($image['tmp_name'], $saved_image);
+    if ($moved) {
+        $saved = resize_and_save($saved_image, $saved_image);
+    }
+
+    if ($saved) {
+        $ext = explode('.', $image['filename'])[1];
+        $made_thumb = make_thumb($saved_image, 200, 150, $ext);
+        if ($made_thumb) {
+            $sql = "INSERT INTO images ";
+            $sql .= "(album_id, filename, type, visible, taken, alt_text, caption) ";
+            $sql .= "VALUES (";
+            $sql .= "'" . db_escape($db, $image['album_id']) . "',";
+            $sql .= "'" . db_escape($db, $image['filename']) . "',";
+            $sql .= "'" . db_escape($db, $image['type']) . "',";
+            $sql .= "'" . db_escape($db, $image['visible']) . "',";
+            $sql .= "'" . db_escape($db, $image['taken']) . "',";
+            $sql .= "'" . db_escape($db, $image['alt_text']) . "',";
+            $sql .= "'" . db_escape($db, $image['caption']) . "'";
+            $sql .= ")";
+
+            $result = mysqli_query($db, $sql);
+            // $result will be boolean
+            if ($result) {
                 return true;
             } else {
-                msqli_rollback($db);
-                $errors[] = "Thumbnail image could not be created.";
+                // INSERT failed
+                $errors[] = mysqli_error($db);
                 return $errors;
             }
         } else {
-            msqli_rollback($db);
-            $errors[] = "Image could not be moved to storage.";
+            mysqli_rollback($db);
+            $errors[] = "Thumbnail image could not be created.";
             return $errors;
         }
     } else {
-        // INSERT failed
-        $errors[] = mysqli_error($db);
+        mysqli_rollback($db);
+        $errors[] = "Image could not be moved to storage.";
         return $errors;
     }
+
 }
 
 // UPDATE $image

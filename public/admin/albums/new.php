@@ -68,87 +68,15 @@ $page_title = "Create Album"; ?>
         <h1>Create Album</h1>
 
         <?= display_errors($errors); ?>
-
-        <form action="" method="post">
-            <dl>
-                <dt>Menu Name</dt>
-                <dd><input type="text" name="menu_name" value="<?= h($album['menu_name']); ?>">
-                </dd>
-            </dl>
-            <dl>
-                <dt>Category</dt>
-                <dd>
-                    <select name="category_id" id="category">
-                    <?php
-                        while ($category = mysqli_fetch_assoc($category_set)) {
-                            echo "<option value=\"{$category['id']}\"";
-                            if ($album['category_id'] == $category['id']) {
-                                echo ' selected';
-                            }
-                            echo ">{$category['menu_name']}</option>";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Position</dt>
-                <dd>
-                    <select name="position" id="position">
-                    <?php
-                        for ($i=1; $i <= $album_count; $i++) {
-                            echo "<option value=\"{$i}\"";
-                            if ($album['position'] == $i) {
-                                echo ' selected';
-                            }
-                            echo ">{$i}</option>";
-                        }
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Visible</dt>
-                <dd>
-                    <input type="hidden" name="visible" value="0">
-                    <input type="checkbox" name="visible" value="1"
-                        <?= $album['visible'] == '1' ? 'checked' : ''; ?>>
-                </dd>
-            </dl>
-            <div id="operations">
-                <input type="submit" value="Create Album">
-            </div>
-        </form>
+        <div class="container">
+            <form action="" method="post">
+                <?php
+                    $new = true;
+                    require_once('album_form.php');
+                ?>
+            </form>
+        </div>
     </div>
 </div>
-<script>
-$(document).ready(function(){
-
-    $("#category").change(function(){
-        var category = $(this).val();
-
-        $.ajax({
-            url: '/public/admin/albums/countAlbums.php',
-            type: 'post',
-            data: {category_id:category},
-            dataType: 'json',
-            success:function(response){
-
-                var album_count = response + 1;
-
-                $("#position").empty();
-                for( var i = 1; i <= album_count; i++){
-                    if (i = album_count) {
-                        $("#position").append("<option value='"+i+"' checked>"+i+"</option>");
-                    } else {
-                        $("#position").append("<option value='"+i+"'>"+i+"</option>");
-                    }
-                }
-
-            }
-        });
-    });
-
-});
-</script>
+<?php require_once('updatePosition.php'); ?>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

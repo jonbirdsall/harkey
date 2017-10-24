@@ -1,17 +1,14 @@
 html {
-    height: 100%;
-    width: 100%;
+
 }
 
 body {
-    height: 980px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    min-height: 980px;
+
 }
 
 header {
-    width: 980px;
+    width: 100%;
     height: 40px;
     margin: 0 0 10px 0;
     padding: 0;
@@ -28,14 +25,14 @@ header h1 {
 }
 
 navigation {
-    width: 980px;
+    width: 100%;
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
 navigation ul {
-    width: 980px;
+    width: 100%;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -47,13 +44,13 @@ navigation ul li {
 }
 
 #content {
-    width: 920px;
+    width: 100%;
     min-height: 500px;
     padding: 0 30px;
 }
 
 footer {
-    width: 940px;
+    width: 100%;
     /*height: 20px;*/
     margin: 0 0 10px 0;
     padding: 10px 20px;
@@ -91,6 +88,9 @@ table.list tr th {
 
 
 /* Forms */
+form .row {
+    margin-bottom: 5px;
+}
 
 dl {
     clear: both;
@@ -109,13 +109,13 @@ dd {
     margin-left: 1em;
 }
 
-select {
+/*select {
     margin-bottom: 5px;
-}
+}*/
 
-#operations {
+/*#operations {
     clear: both;
-}
+}*/
 
 
 /* Errors */

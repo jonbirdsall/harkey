@@ -31,7 +31,7 @@ require_login();
                     Create New Category</a>
             </div>
 
-            <table class="list">
+            <table class="list table">
                 <tr>
                     <th>ID</th>
                     <th>Position</th>
