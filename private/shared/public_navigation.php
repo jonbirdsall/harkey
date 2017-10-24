@@ -10,7 +10,13 @@
 
     <h2>Albums</h2>
     <ul id="categories">
-        <?php while ($nav_category = mysqli_fetch_assoc($nav_category_set)) { ?>
+        <?php
+            while ($nav_category = mysqli_fetch_assoc($nav_category_set)) {
+                if (count_albums_by_category_id($nav_category['id']) == 0) {
+                    continue;
+                }
+        ?>
+
             <li class="<?php if ($nav_category['id'] == $category_selected) {
                 echo 'selected';
             } ?>">
