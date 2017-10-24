@@ -53,5 +53,5 @@
 
     // establish database connection for all files
     $db = db_connect();
-    require_once('shared/fake_db.php');
+    // require_once('shared/fake_db.php');
     $errors = [];

@@ -662,7 +662,8 @@ function image_list() {
     $sql .= "categories.menu_name AS category_name ";
     $sql .= "FROM images ";
     $sql .= "LEFT JOIN albums ON images.album_id = albums.id ";
-    $sql .= "LEFT JOIN categories ON albums.category_id = categories.id";
+    $sql .= "LEFT JOIN categories ON albums.category_id = categories.id ";
+    $sql .= "ORDER BY albums.category_id, images.album_id";
 
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);

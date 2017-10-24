@@ -5,18 +5,42 @@ require_once('../private/initialize.php');
 // images.  Also, navigation on the left can list albums.
 $page_title = '';
 
+// default behavior is no album selected
+$album = false;
 if (isset($_GET['album_id'])) {
-    $album_id = $_GET['album_id'];
-    $page_title = $albums[$album_id]['menu_name'];
+    $album_selected = $_GET['album_id'] ?? '';
+    $album = find_album_by_id($album_selected, ['visible' => true]);
+
+    if (!$album) {
+        redirect_to(url_for('index.php'));
+    }
+    $category_selected = $album['category_id'] ?? '';
+} else {
+    $category_selected = $_GET['category_id'] ?? '';
 }
+
 
  ?>
 
  <?php include(SHARED_PATH . '/public_header.php'); ?>
 
- <div id="main">
-    <?php include(SHARED_PATH . '/public_navigation.php'); ?>
-    <div id="page">
-        <?php include(SHARED_PATH . '/static_homepage.php'); ?>
+ <div class="row">
+    <div class="col-sm-3">
+        <?php include(SHARED_PATH . '/public_navigation.php'); ?>
+    </div>
+    <div class="col-sm-9">
+
+        <?php if (!$album) { ?>
+            Select an album from the left to view images.
+        <?php
+            } else {
+                $image_set = find_images_by_album_id(
+                    $album['id'],
+                    ['visible' => true]);
+                include('list_thumbs.php');
+            }
+
+
+        ?>
     </div>
 </div>

@@ -1,3 +1,4 @@
+
 <div class="form-check row">
     <div class="col-sm-2">
         <label class="form-check-label" for="visible">
@@ -25,15 +26,16 @@
     <div class="col-sm-3">
         <select name="category_id" class="form-control" id="category">
         <?php
-            $i = 1;
+            // $i = 1;
 
             while ($category = mysqli_fetch_assoc($category_set)){
                 echo "<option value=\"{$category['id']}\"";
-                if ($category['id'] == $album['category_id']) {
+                if ($category['id'] == $album['category_id'] ||
+                    $category['id'] == $category_id) {
                     echo "selected";
                 }
                 echo ">{$category['menu_name']}</option>";
-                if ($i == 1) {$category_id = $category['id'];}
+                // if ($i == 1) {$category_id = $category['id'];}
             }
         ?>
         </select>

@@ -13,6 +13,9 @@ require_login();
 $id = h($_GET['id']) ?? '1';
 
 $image = find_image_by_id($id);
+$image_album = find_album_by_id($image['album_id']);
+// tell the ajax script which album this image belongs to
+echo "<script>var image_album = {$image_album['id']};</script>";
 $album_set = find_all_albums();
 $category_set = find_all_categories();
 $thumb_url = thumb_url($image['filename']);

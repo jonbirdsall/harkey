@@ -17,9 +17,15 @@ $(document).ready(function(){
                 for( var i = 0; i<len; i++){
                     var id = response[i]['id'];
                     var menu_name = response[i]['menu_name'];
-
-                    $("#album").append("<option value='"+id+"'>"+menu_name+"</option>");
-
+                    <?php if (!$new) { ?>
+                        if (id == image_album) {
+                            $("#album").append("<option value='"+id+"' selected>"+menu_name+"</option>");
+                        } else {
+                            $("#album").append("<option value='"+id+"'>"+menu_name+"</option>");
+                        }
+                    <?php } else { ?>
+                        $("#album").append("<option value='"+id+"'>"+menu_name+"</option>");
+                    <?php } ?>
                 }
             }
         });

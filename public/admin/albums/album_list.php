@@ -1,12 +1,16 @@
 <div class="albums listing">
-    <?php if ($child) { ?>
+    <?php if ($child) {
+        $new_album_url = '/admin/albums/new.php?category_id=' . $category['id'];
+        ?>
         <h2>Albums</h2>
-    <?php } else { ?>
+    <?php } else {
+        $new_album_url = '/admin/albums/new.php';
+        ?>
         <h1>Albums</h1>
     <?php } ?>
 
         <div class="actions">
-            <a class="action" href="<?= url_for('/admin/albums/new.php'); ?>">
+            <a class="action" href="<?= url_for($new_album_url); ?>">
                 Create Album</a>
         </div>
         <div class="list">

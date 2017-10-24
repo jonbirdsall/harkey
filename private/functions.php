@@ -13,6 +13,10 @@ function url_for($script_path) {
     return WWW_ROOT . $script_path;
 }
 
+function image_url($filename) {
+    return IMAGE_URL . $filename;
+}
+
 // returns urlencoded $string
 function u($string='') {
     return urlencode($string);

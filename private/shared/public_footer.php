@@ -3,7 +3,7 @@
 </footer>
 
 <p></p>
-
+</div><!-- class="container" -->
 </body>
 </html>
 

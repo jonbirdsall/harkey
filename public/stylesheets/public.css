@@ -29,35 +29,31 @@
 /* http://paletton.com */
 
 html {
-  height: 100%;
-  width: 100%;
+
 }
 
 body {
-  width: 1100px;
+  /*width: 1100px;*/
   height: 100%;
-  margin: auto;
-  border: 0;
+  /*margin: auto;*/
+  /*border: 0;*/
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 13px;
   line-height: 15px;
-  background: #7DBE98;
+  /*background: #7DBE98;*/
 }
 
 header {
   height: 140px;
-  width: 1100px;
+  /*width: 1100px;*/
   margin: 0;
   padding: 0;
   text-align: left;
-  background: #3E9561;
-  color: #FFFFFF;
+  /*background: #3E9561;*/
+  /*color: #FFFFFF;*/
 }
 
-header h1 {
-  padding: 1em;
-  margin: 0;
-}
+
 
 #main {
   width: 1100px;
@@ -65,7 +61,7 @@ header h1 {
   min-height: 800px;
   margin: 0;
   padding: 0;
-  background: #7DBE98;
+  /*background: #7DBE98;*/
 }
 
 footer {
@@ -74,32 +70,34 @@ footer {
   margin: 0;
   padding: 1em;
   text-align: center;
-  background: #e03e52;
-  color: #FFFFFF;
+  /*background: #e03e52;*/
+  /*color: #FFFFFF;*/
 }
 
 
 /* Navigation */
 
 navigation {
-  float: left;
-  width: 200px;
+  /*float: left;*/
+  /*width: 200px;*/
   height: 100%;
-  background: #5CAA7B;
+  border-right: 2px;
+  border-color: #000000;
+  /*background: #5CAA7B;*/
 }
 
 navigation a {
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
   text-decoration: none;
 }
 
 navigation a:hover {
-  color: #7DBE98;
+  /*color: #7DBE98;*/
   text-decoration: underline;
 }
 
 a {
-  color: #E03E52;
+  /*color: #E03E52;*/
   text-decoration: none;
 }
 
@@ -108,7 +106,7 @@ a:hover {
 }
 
 ul.albums {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   margin-left: 20px;
   padding: 0;
   list-style: none;
@@ -126,7 +124,7 @@ ul.pages {
 }
 
 .selected > a {
-  color: #3E9561;
+  /*color: #3E9561;*/
   font-style: normal;
 }
 
@@ -144,31 +142,31 @@ navigation li {
   height: 100%;
   padding-left: 0;
   vertical-align: top;
-  background: #ffffff;
+  /*background: #ffffff;*/
 }
 
 #page h1 {
   font-size: 16px;
-  color: #000000;
+  /*color: #000000;*/
   line-height: normal;
 }
 
 #page h2 {
   font-size: 14px;
-  color: #000000;
+  /*color: #000000;*/
   line-height: normal;
 }
 
 #page p {
   font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif" font-size: 12px;
-  color: #000000;
+  /*color: #000000;*/
   padding: 0px;
   line-height: normal;
 }
 
 #page h3 {
   font-size: 14px;
-  color: #e03e52;
+  /*color: #e03e52;*/
 }
 
 #content {
@@ -208,14 +206,3 @@ navigation li {
 }
 
 /* Learn More links */
-
-a.learnmore {
-  color: #E03E52;
-  font-size: 14px;
-  font-weight: bold;
-  text-decoration: none
-}
-
-a.learnmore:hover {
-  text-decoration: underline
-}

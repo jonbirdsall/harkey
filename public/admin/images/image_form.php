@@ -38,9 +38,12 @@
             <?php
                 while ($category = mysqli_fetch_assoc($category_set)) {
                     if (count_albums_by_category_id($category['id']) == 0) {
-                        break;
+                        continue;
                     }
                     echo "<option value=\"{$category['id']}\"";
+                    if (isset($image_album) && $category['id'] == $image_album['category_id']) {
+                        echo 'selected';
+                    }
                     echo ">{$category['menu_name']}</option>";
                 }
             ?>
@@ -72,17 +75,17 @@
         <div class="col-sm-2">
             <script>
             $( function() {
-                // $( "#datepicker" ).datepicker();
-                $( "#datepicker" ).datepicker({
-                    dateFormat: "yy-mm-dd",
-                });
-
+                $( "#datepicker" ).datepicker();
+                $( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");
+                <?php if(!$new) { ?>
+                $( "#datepicker" ).datepicker("setDate", "<?= $image['taken']; ?>");
+                <?php } ?>
             });
             </script>
             <label for="datepicker">Date taken</label>
         </div>
         <div class="col-sm-2">
-            <input type="date" class="form-control" id="datepicker" name="taken"
+            <input type="text" class="form-control" id="datepicker" name="taken"
                 value="<?= $image['taken'] ?? ''; ?>">
         </div>
     </div>
